@@ -35,3 +35,40 @@ Each directory listed in `GOPATH` must have a prescribed structure:
 - **src**: Holds source code. The path below `src` determines the import path or executable name.
 - **pkg**: Holds installed package objects. Each target operating system and architecture pair has its own subdirectory of `pkg` (`pkg/GOOS_GOARCH`).
 - **bin**: Holds compiled commands. Each command is named for its source directory, but only the final element, not the entire path. For example, the command with source in `DIR/src/foo/quux` is installed into `DIR/bin/quux`, not `DIR/bin/foo/quux`. The `foo/` prefix is stripped so that you can add `DIR/bin` to your `PATH` to access the installed commands. If the `GOBIN` environment variable is set, commands are installed to the directory it names instead of `DIR/bin`. `GOBIN` must be an absolute path.
+
+
+- ----------------------------
+- The formal grammer uses semi-colons to terminate statements, but the Go compiler inserts them automatically at the end of each line.
+
+### Lexer
+ Every programming language has a lexer. It's job is simply to check the syntax of the code or grammer of the language. 
+
+ Before pre-compilation, the lexer checks the syntax of the code. 
+
+ So, the semicolons are automatically inserted by the lexer in Go. 
+
+
+### Types in Go
+
+Case-sensitive
+Variable type should be known in advance - whether it is public or private, int or string, etc.
+
+Almost everything in Go is a type.
+
+Some types in Go:
+- string
+- bool
+- Integer : uint8, uint64, int8, int64, unintptr
+- Floating: float32, float64
+- Complex
+
+- ----------------------------
+
+Advance Types in Go:
+- Array
+- Slice
+- Map
+- Struct
+- Pointer
+- Function
+- Channel, etc.
