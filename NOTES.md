@@ -83,3 +83,11 @@ Advance Types in Go:
 - Format() method is used to format the time in Go. But the format is different from the other languages.
 We use 01-02-2006 15:04:05 Monday to format the time in Go.
 Yes, it is weird but it is the way to format the time in Go.
+
+## Builds in Go
+
+- `go env` - to see the environment variables in Go.
+
+`GOOS="windows" go build `-- finds main.go and creates an executable file for windows.
+
+`GOOS="linux" go build` -- finds main.go and creates an executable file for linux. and so on.
