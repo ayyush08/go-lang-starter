@@ -72,3 +72,14 @@ Advance Types in Go:
 - Pointer
 - Function
 - Channel, etc.
+
+- ----------------------------
+
+## Time Package in Go
+
+- Time package is used to work with time in Go.
+- It is used to get the current time, format the time, etc.
+
+- Format() method is used to format the time in Go. But the format is different from the other languages.
+We use 01-02-2006 15:04:05 Monday to format the time in Go.
+Yes, it is weird but it is the way to format the time in Go.
