@@ -91,3 +91,17 @@ Yes, it is weird but it is the way to format the time in Go.
 `GOOS="windows" go build `-- finds main.go and creates an executable file for windows.
 
 `GOOS="linux" go build` -- finds main.go and creates an executable file for linux. and so on.
+
+
+## Memory Management in Go
+
+- Memory allocation and deallocation happens automatically in Go.
+
+- We usually use two methods to allocate memory in Go:
+    - `new()` - to allocate memory but not initialize it., we get a memory address. A zeroed storage is returned.
+    In zeroed storage, you cannot put any data.
+    - `make()` - to allocate memory and also initialize it. We get a memory address. Non-zeroed storage is returned.
+    In non-zeroed storage, we can put data.
+
+- Automatic garbage collection in Go. Anything out of scope or nil is garbage collected in Go.
+- The GOGC variable sets the initial garbage collection target percentage. A collection is triggered when the ratio of freshly allocated data to live data remaining after the previous collection reaches this percentage. The default is GOGC=100. Setting GOGC=off disables the garbage collector entirely.
