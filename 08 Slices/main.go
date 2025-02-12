@@ -20,8 +20,8 @@ func main() {
 	fmt.Println("Fruit List 2:", fruitList2)
 	fmt.Println("Length of fruitList2:", len(fruitList2)) //Length of fruitList2: 5
 
-	fruitList2 = append(fruitList2[1:3]) // colon syntax used to slice up the slice/ When you want to make separate parts of slice, start at 1(default is 0) and end at 3, but 3rd index is not included as range are always non-inclusive
-
+	fruitList2 = fruitList2[1:3] // colon syntax used to slice up the slice/ When you want to make separate parts of slice, start at 1(default is 0) and end at 3, but 3rd index is not included as range are always non-inclusive
+	fruitList2 = append(fruitList2, "Grapes")
 	fmt.Println("Fruit List 2 after slicing:", fruitList2)
 
 	//Slices are reference types, when you pass a slice to a function, any changes made in the slice will reflect in the original slice
