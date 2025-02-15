@@ -105,3 +105,9 @@ Yes, it is weird but it is the way to format the time in Go.
 
 - Automatic garbage collection in Go. Anything out of scope or nil is garbage collected in Go.
 - The GOGC variable sets the initial garbage collection target percentage. A collection is triggered when the ratio of freshly allocated data to live data remaining after the previous collection reaches this percentage. The default is GOGC=100. Setting GOGC=off disables the garbage collector entirely.
+
+
+## Defer Statement in Go
+
+- `defer` statement invokes a function whose execution is deferred to the moment the surrounding function returns, either because the surrounding function executed a return statement, reached the end of its function body, or because the corresponding goroutine is panicking.
+- Deferred functions are executed in LIFO order.
