@@ -111,3 +111,8 @@ Yes, it is weird but it is the way to format the time in Go.
 
 - `defer` statement invokes a function whose execution is deferred to the moment the surrounding function returns, either because the surrounding function executed a return statement, reached the end of its function body, or because the corresponding goroutine is panicking.
 - Deferred functions are executed in LIFO order.
+
+
+## Web Requests in Go
+
+- `net/http` package is used to make web requests in Go. It is the fastest way to make web requests in Go.
