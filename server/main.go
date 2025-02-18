@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
 func main() {
 	// PerformGetRequest()
-	PerformPostRequest()
+	// PerformPostRequest()
+	PerformPostFormRequest()
 }
 
 func PerformGetRequest() {
@@ -48,7 +50,7 @@ func PerformGetRequest() {
 
 
 func PerformPostRequest() {
-	const myurl = "http://localhost:5000/postform"
+	const myurl = "http://localhost:5000/post"
 
 	//fake json payload
 
@@ -69,6 +71,34 @@ func PerformPostRequest() {
 
 	fmt.Println("Response status:", res.StatusCode)
 	fmt.Println("Response content length:", res.ContentLength)
+
+	content, _ := io.ReadAll(res.Body)
+
+	fmt.Println("Response body:", string(content))
+
+}
+
+func PerformPostFormRequest() {
+	const myurl = "http://localhost:5000/postform"
+
+
+	//fake form data
+
+	formData := url.Values{} // as value comes in, we can add it to the form data
+
+	formData.Add("name","Monkey D. Luffy")
+	formData.Add("age","19")
+	formData.Add("job","Pirate King")
+	formData.Add("crew","Straw Hat Pirates")
+	
+
+	res,err := http.PostForm(myurl,formData) // here we don't need to specify the content type as it is already specified in the function
+
+	if(err != nil){
+		panic(err)
+	}
+
+	defer res.Body.Close()
 
 	content, _ := io.ReadAll(res.Body)
 
