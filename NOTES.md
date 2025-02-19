@@ -116,3 +116,34 @@ Yes, it is weird but it is the way to format the time in Go.
 ## Web Requests in Go
 
 - `net/http` package is used to make web requests in Go. It is the fastest way to make web requests in Go.
+
+
+# GO MOD
+
+- ``` go mod init github.com/ayyush08/mymods``` - to initialize a module in Go. It tells that the entire code was dependent on this version of the module. and it creates a go.mod file. For versioning, Go follows the semantic versioning(semver) just like npm.
+
+- go toolchain is the way how you pull all dependencies  of a repo. It is a way to manage dependencies in Go.
+
+- go sum file is created to check the integrity of the dependencies. It is a checksum file to prevent the code from being tampered with or threat attacks.
+
+- ```go mod tidy``` - to clean up the dependencies in Go. It is an expensive operation. after runnning this the '//indirect' is gone from the go.mod file as tidy removes the dependencies that are not used in the code.
+
+- ```gorilla/mux``` - is a package in Go to create a router in Go. It is a third-party package in Go.
+
+- ```go mod verify``` - to verify the dependencies in Go. It checks the integrity of the dependencies by going to go.sum file and checking the checksums of the dependencies.
+
+- ```go list``` - to list the dependencies in present module.
+- ```go list -m all``` - to list all the dependencies in current module.
+
+- ```go list all``` - to list all the dependencies in the whole ecosystem.
+
+- ```go mod why <module-name>``` - to check why a particular module is being used in the code.
+
+- ```go mod graph``` - to see the graph of the dependencies in the code.
+
+- ```go mod edit -go 1.14``` - to change the version of Go in the code.
+
+- ```go mod edit -module <module-name>``` - to change the module name in the code.
+
+- ```go mod vendor``` - to create a vendor folder i.e, the cache of the dependencies stored externally. It is used to bring the all files of the dependencies in the project. But we can't say go run main.go, we have to say go run -mod=vendor main.go to run the code. (Generally, it is not recommended to use vendor folder in Go.)
+
