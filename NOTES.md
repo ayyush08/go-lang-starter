@@ -147,3 +147,10 @@ Yes, it is weird but it is the way to format the time in Go.
 
 - ```go mod vendor``` - to create a vendor folder i.e, the cache of the dependencies stored externally. It is used to bring the all files of the dependencies in the project. But we can't say go run main.go, we have to say go run -mod=vendor main.go to run the code. (Generally, it is not recommended to use vendor folder in Go.)
 
+
+// --------------------------------------------
+
+## Writing APIs in Go
+
+When creating any controller , the parameters for the function are always 2 things: A writer and a reader.
+Writer(w http.ResponseWriter) is used to write the response and Reader(r *http.Request) is used to read the request coming in.
