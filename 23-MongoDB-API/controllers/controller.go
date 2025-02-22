@@ -8,14 +8,19 @@ import (
 
 	"github.com/ayyush08/mongoapi/db"
 	"github.com/ayyush08/mongoapi/models"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 //MONGODB helpers - file
 
-//insert 1 record
+func getDBContext() (context.Context, context.CancelFunc) {
+	return context.WithTimeout(context.Background(), 5*time.Second)
+}
 
+// insert 1 record
+// name of fun starts with lowercase so it is private to this package, if we want to use it outside package then we need to export it by starting with uppercase
 func insertOneMovie(movie models.Netflix) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := getDBContext()
 	defer cancel()
 	// Prevents hanging requests by setting a timeout of 5 seconds.
 	// Ensures the request is canceled if MongoDB takes too long to respond.
@@ -29,4 +34,27 @@ func insertOneMovie(movie models.Netflix) {
 	}
 
 	fmt.Println("Inserted movie: ", insertedMovie.InsertedID)
+}
+
+func updateOneMovie(movieId string) {
+	ctx, cancel := getDBContext()
+	defer cancel()
+
+	id, idErr := bson.ObjectIDFromHex(movieId) //convert string to bson object id accepted by mongodb
+
+	if idErr != nil {
+		log.Fatal("Error converting id: ", idErr)
+	}
+
+	filter := bson.M{"_id": id} // we can als use bson.D instead of bson.M, the difference is bson.D is ordered and bson.M is unordered but more readable and shorter
+	update := bson.M{"$set": bson.M{"watched": true}}
+
+	res, err := db.Collection.UpdateOne(ctx, filter, update)
+
+	if err != nil {
+		log.Fatal("Error updating movie: ", err)
+	}
+
+	fmt.Println("Updated movie: ", res)
+
 }
