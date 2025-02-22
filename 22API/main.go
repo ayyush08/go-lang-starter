@@ -134,7 +134,6 @@ func createCourse(w http.ResponseWriter, r *http.Request) {
 	course.CourseId = strconv.Itoa(rand.Intn(100))
 	courses = append(courses, course)
 	json.NewEncoder(w).Encode(course)
-	return
 }
 
 func updateCourse(w http.ResponseWriter, r *http.Request) {
@@ -164,7 +163,6 @@ func updateCourse(w http.ResponseWriter, r *http.Request) {
 	}
 	//send response if course not found
 	json.NewEncoder(w).Encode("Course not found with the id " + params["id"])
-	return
 }
 
 func deleteCourse(w http.ResponseWriter, r *http.Request) {

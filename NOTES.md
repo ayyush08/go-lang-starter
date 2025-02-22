@@ -154,3 +154,6 @@ Yes, it is weird but it is the way to format the time in Go.
 
 When creating any controller , the parameters for the function are always 2 things: A writer and a reader.
 Writer(w http.ResponseWriter) is used to write the response and Reader(r *http.Request) is used to read the request coming in.
+
+### Note 
+While designing APIs, it is suggested to have one main.go file and then create a separate folder for the controllers, models, and routes inside the root directory as having all the files in the root directory can be messy or create problems in the future.
