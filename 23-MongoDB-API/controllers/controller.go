@@ -2,12 +2,15 @@ package controllers
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/ayyush08/mongoapi/db"
 	"github.com/ayyush08/mongoapi/models"
+	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
@@ -59,7 +62,6 @@ func updateOneMovie(movieId string) {
 
 }
 
-
 func deleteOneMovie(movieId string) {
 	ctx, cancel := getDBContext()
 	defer cancel()
@@ -72,7 +74,7 @@ func deleteOneMovie(movieId string) {
 
 	filter := bson.M{"_id": id}
 
-	res,err := db.Collection.DeleteOne(ctx,filter)
+	res, err := db.Collection.DeleteOne(ctx, filter)
 
 	if err != nil {
 		log.Fatal("Error deleting movie: ", err)
@@ -85,7 +87,7 @@ func deleteAllMovies() {
 	ctx, cancel := getDBContext()
 	defer cancel()
 
-	res,err := db.Collection.DeleteMany(ctx,bson.M{}, nil)
+	res, err := db.Collection.DeleteMany(ctx, bson.M{}, nil)
 
 	if err != nil {
 		log.Fatal("Error deleting movies: ", err)
@@ -109,7 +111,7 @@ func getAllMovies() []bson.M {
 
 	var movies []bson.M
 
-	for cursor.Next(ctx){
+	for cursor.Next(ctx) {
 		var movie bson.M
 		if err := cursor.Decode(&movie); err != nil {
 			log.Fatal("Error decoding movie: ", err)
@@ -122,4 +124,41 @@ func getAllMovies() []bson.M {
 
 	fmt.Println("Found movies: ", movies)
 	return movies
+}
+
+//Actual controller - intended to keep in this file and rest helper functions in another file
+
+func GetAllMovies(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	allMovies := getAllMovies()
+
+	json.NewEncoder(w).Encode(allMovies)
+}
+
+func CreateMovie(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Allow-Control-Allow-Methods", "POST")
+
+	var movie models.Netflix
+
+	_ = json.NewDecoder(r.Body).Decode(&movie)
+
+	insertOneMovie(movie)
+
+	json.NewEncoder(w).Encode(movie)
+
+
+}
+
+func MarkAsWatched(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Allow-Control-Allow-Methods", "POST")
+
+	params := mux.Vars(r)
+	movieId := params["id"]
+
+	updateOneMovie(movieId)
+
+	json.NewEncoder(w).Encode("Movie marked as watched with id: " + movieId)
+
 }
