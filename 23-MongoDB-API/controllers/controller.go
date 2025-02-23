@@ -93,3 +93,33 @@ func deleteAllMovies() {
 
 	fmt.Println("Deleted movies: ", res)
 }
+
+// get all records from db
+
+func getAllMovies() []bson.M {
+	ctx, cancel := getDBContext()
+	defer cancel()
+
+	cursor, cursorErr := db.Collection.Find(ctx, bson.M{})
+
+	//A cursor is a mechanism that allows an application to iterate over database results while holding only a subset of them in memory at a given time. Read operations that match multiple documents use a cursor to return those documents in batches rather than all at once.
+	if cursorErr != nil {
+		log.Fatal("Error finding movies: ", cursorErr)
+	}
+
+	var movies []bson.M
+
+	for cursor.Next(ctx){
+		var movie bson.M
+		if err := cursor.Decode(&movie); err != nil {
+			log.Fatal("Error decoding movie: ", err)
+		}
+		movies = append(movies, movie)
+
+	}
+
+	defer cursor.Close(ctx)
+
+	fmt.Println("Found movies: ", movies)
+	return movies
+}
