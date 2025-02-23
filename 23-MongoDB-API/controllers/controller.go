@@ -83,7 +83,7 @@ func deleteOneMovie(movieId string) {
 	fmt.Println("Deleted movie: ", res)
 }
 
-func deleteAllMovies() {
+func deleteAllMovies() int64 {
 	ctx, cancel := getDBContext()
 	defer cancel()
 
@@ -94,6 +94,7 @@ func deleteAllMovies() {
 	}
 
 	fmt.Println("Deleted movies: ", res)
+	return res.DeletedCount
 }
 
 // get all records from db
@@ -152,7 +153,7 @@ func CreateMovie(w http.ResponseWriter, r *http.Request) {
 
 func MarkAsWatched(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Allow-Control-Allow-Methods", "POST")
+	w.Header().Set("Allow-Control-Allow-Methods", "PUT")
 
 	params := mux.Vars(r)
 	movieId := params["id"]
@@ -161,4 +162,27 @@ func MarkAsWatched(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode("Movie marked as watched with id: " + movieId)
 
+}
+
+func DeleteOneMovie(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
+
+
+	params := mux.Vars(r)
+	movieId := params["id"]
+
+	deleteOneMovie(movieId)
+
+	json.NewEncoder(w).Encode("Movie deleted with id: " + movieId)
+}
+
+func DeleteAllMovies(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
+
+	count := deleteAllMovies()
+
+	
+	json.NewEncoder(w).Encode(count)
 }
