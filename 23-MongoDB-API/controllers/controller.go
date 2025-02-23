@@ -58,3 +58,38 @@ func updateOneMovie(movieId string) {
 	fmt.Println("Updated movie: ", res)
 
 }
+
+
+func deleteOneMovie(movieId string) {
+	ctx, cancel := getDBContext()
+	defer cancel()
+
+	id, idErr := bson.ObjectIDFromHex(movieId)
+
+	if idErr != nil {
+		log.Fatal("Error converting id: ", idErr)
+	}
+
+	filter := bson.M{"_id": id}
+
+	res,err := db.Collection.DeleteOne(ctx,filter)
+
+	if err != nil {
+		log.Fatal("Error deleting movie: ", err)
+	}
+
+	fmt.Println("Deleted movie: ", res)
+}
+
+func deleteAllMovies() {
+	ctx, cancel := getDBContext()
+	defer cancel()
+
+	res,err := db.Collection.DeleteMany(ctx,bson.M{}, nil)
+
+	if err != nil {
+		log.Fatal("Error deleting movies: ", err)
+	}
+
+	fmt.Println("Deleted movies: ", res)
+}
