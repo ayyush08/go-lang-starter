@@ -58,7 +58,7 @@ func updateOneMovie(movieId string) {
 		log.Fatal("Error updating movie: ", err)
 	}
 
-	fmt.Println("Updated movie: ", res)
+	fmt.Println("Updated movie: ", res.ModifiedCount)
 
 }
 
