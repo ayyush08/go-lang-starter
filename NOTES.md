@@ -148,7 +148,7 @@ Yes, it is weird but it is the way to format the time in Go.
 - ```go mod vendor``` - to create a vendor folder i.e, the cache of the dependencies stored externally. It is used to bring the all files of the dependencies in the project. But we can't say go run main.go, we have to say go run -mod=vendor main.go to run the code. (Generally, it is not recommended to use vendor folder in Go.)
 
 
-// --------------------------------------------
+- --------------------------------------------
 
 ## Writing APIs in Go
 
@@ -157,3 +157,20 @@ Writer(w http.ResponseWriter) is used to write the response and Reader(r *http.R
 
 ### Note 
 While designing APIs, it is suggested to have one main.go file and then create a separate folder for the controllers, models, and routes inside the root directory as having all the files in the root directory can be messy or create problems in the future.
+
+- --------------------------------------------
+
+## Concurrency vs Parallelism
+
+- Concurrency is the ability to run multiple tasks at the same time. But it is not necessary that they run at the same time parallelly. You can switch between the tasks and run them at the same time. It is like multitasking.
+
+- Parallelism is the ability to run multiple tasks at the same time parallelly. It is like running multiple tasks at the same time.
+
+
+## Goroutines in Go
+
+- Goroutines are how we achieve this parallelism in Go. They are lightweight threads managed by the Go runtime. They are not OS threads, they are managed by the Go runtime.
+Normal OS threads have fixed stack of 1mb while goroutines have a stack of 2kb. So, we can create a lot of goroutines in Go which makes running task faster.
+
+- "Do not communicate by sharing memory; instead, share memory by communicating." - Rob Pike (Go creator)
+- `go` keyword is used to create a goroutine in Go.
