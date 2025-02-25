@@ -7,7 +7,11 @@ import (
 )
 
 
-var waitGroupVariable sync.WaitGroup //wait group in sync package is used to wait for go routines to come back and once they come it is your responsibility to call done() on waitGroupVariable to let it know that the go routine has come back
+var signals = []string{"test"}
+
+var waitGroupVariable sync.WaitGroup //(a pointer) - wait group in sync package is used to wait for go routines to come back and once they come it is your responsibility to call done() on waitGroupVariable to let it know that the go routine has come back
+
+var mutexVariable sync.Mutex
 
 func main() {
 
@@ -33,8 +37,9 @@ func main() {
 		go getStatusCode(website) // this will fire up a go routine for each website and will not wait for the response to come back BUT just adding 'go' keyword will not make it non blocking as main function will exit before the go routines come back since we are not waiting for them to come back
 		waitGroupVariable.Add(1) // increment the wait group counter to let it know that we are waiting for one more go routine to come back
 	}
+	fmt.Println("All go routines have come back") 	 
 	waitGroupVariable.Wait() // wait for all the go routines to come back - always written at end of any method otherwise it will block the main thread
-	fmt.Println("All go routines have come back")	
+	fmt.Println("signals: ", signals)
 }
 
 // func greeter(s string) {
@@ -52,5 +57,9 @@ func getStatusCode(endpoint string) {
 		fmt.Println("Endpoint is not reachable: ", err)
 		return
 	}
+
+	mutexVariable.Lock()
+	signals = append(signals, endpoint)
+	mutexVariable.Unlock()
 	fmt.Printf("%d status code for %s\n", res.StatusCode, endpoint)
 }

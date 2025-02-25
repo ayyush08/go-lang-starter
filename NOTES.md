@@ -175,3 +175,12 @@ Normal OS threads have fixed stack of 1mb while goroutines have a stack of 2kb. 
 - "Do not communicate by sharing memory; instead, share memory by communicating." - Rob Pike (Go creator)
 - `go` keyword is used to create a goroutine in Go.
 
+- --------------------------------------------
+
+## Question: If the threads are managed by the Go runtime, then who is managing the lock on to a memory location?
+
+- Let's say we have 5 different go routines simultaneously trying to access the same memory location. Then, how does Go manage the lock on to that memory location? We need to have some responsibility to manage the lock on to that memory location.
+
+- Hence, we use Mutex in Go to manage the lock on to a memory location. Mutex is a lock that is used to lock the memory location so that only one goroutine can access that memory location at a time. 
+
+- Mutex allows anybody with read access to the memory location but only one person with write access to the memory location.
