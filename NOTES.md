@@ -174,3 +174,4 @@ Normal OS threads have fixed stack of 1mb while goroutines have a stack of 2kb. 
 
 - "Do not communicate by sharing memory; instead, share memory by communicating." - Rob Pike (Go creator)
 - `go` keyword is used to create a goroutine in Go.
+
