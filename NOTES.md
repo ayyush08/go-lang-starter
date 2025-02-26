@@ -184,3 +184,9 @@ Normal OS threads have fixed stack of 1mb while goroutines have a stack of 2kb. 
 - Hence, we use Mutex in Go to manage the lock on to a memory location. Mutex is a lock that is used to lock the memory location so that only one goroutine can access that memory location at a time. 
 
 - Mutex allows anybody with read access to the memory location but only one person with write access to the memory location.
+
+- --------------------------------------------
+
+## If there are multiple goroutines running and a particular memory space is just one thing, then if another thread at same time comes in and tries to write to that memory location, then it will create issues or Race Conditions. So, how to handle this?
+
+- 
