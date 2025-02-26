@@ -189,4 +189,10 @@ Normal OS threads have fixed stack of 1mb while goroutines have a stack of 2kb. 
 
 ## If there are multiple goroutines running and a particular memory space is just one thing, then if another thread at same time comes in and tries to write to that memory location, then it will create issues or Race Conditions. So, how to handle this?
 
-- 
+- We use Mutex in Go to handle this. Mutex is a lock that is used to lock the memory location so that only one goroutine can access that memory location at a time.
+
+- --------------------------------------------
+
+## Channels in Go
+
+- Channels are used to communicate between goroutines in Go. They are used to pass data between goroutines.
